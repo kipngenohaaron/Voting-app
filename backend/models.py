@@ -23,8 +23,15 @@ class Poll(db.Model):
     question = db.Column(db.String(255), nullable=False)
     options = db.relationship('Option', backref='poll', lazy=True)
 
+# class Option(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(255), nullable=False)
+#     vote_count = db.Column(db.Integer, default=0)  # ✅ This line is necessary
+#     poll_id = db.Column(db.Integer, db.ForeignKey('poll.id'), nullable=False)
 class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(255), nullable=False)
-    vote_count = db.Column(db.Integer, default=0)  # ✅ This line is necessary
+    text = db.Column(db.String(100), nullable=False)
+    vote_count = db.Column(db.Integer, default=0)  # <-- this line is crucial
     poll_id = db.Column(db.Integer, db.ForeignKey('poll.id'), nullable=False)
+
+    poll = db.relationship('Poll', back_populates='options')
