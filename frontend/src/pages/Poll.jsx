@@ -24,37 +24,76 @@ function Poll() {
 
   return (
     <div>
-      <h2>{poll.question}</h2>
-      {poll.options.map(opt => (
-        <div key={opt.id}>
-          <label>
-            <input
-              type="radio"
-              name="vote"
-              value={opt.id}
-              onChange={() => setSelected(opt.id)}
-            />
-            {opt.text}
-          </label>
-        </div>
-      ))}
-      <button onClick={submitVote} disabled={!selected || voted}>
-        {voted ? 'Thanks for Voting!' : 'Submit Vote'}
-      </button>
+  <h2>{poll.question}</h2>
+  <form>
+    {poll.options.map(opt => (
+      <div className="form-check" key={opt.id}>
+        <input
+          className="form-check-input"
+          type="radio"
+          name="vote"
+          value={opt.id}
+          onChange={() => setSelected(opt.id)}
+        />
+        <label className="form-check-label">{opt.text}</label>
+      </div>
+    ))}
+    <button
+      type="button"
+      className="btn btn-primary mt-3"
+      onClick={submitVote}
+      disabled={!selected || voted}
+    >
+      {voted ? 'Thanks for Voting!' : 'Submit Vote'}
+    </button>
+  </form>
 
-      {voted && (
-        <div>
-          <h3>Results:</h3>
-          <ul>
-            {poll.options.map(opt => (
-              <li key={opt.id}>
-                {opt.text}: {opt.vote_count} votes
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  {voted && (
+    <div className="mt-4">
+      <h4>Results</h4>
+      <ul className="list-group">
+        {poll.options.map(opt => (
+          <li className="list-group-item" key={opt.id}>
+            {opt.text}: {opt.vote_count} votes
+          </li>
+        ))}
+      </ul>
     </div>
+  )}
+</div>
+
+    // <div>
+    //   <h2>{poll.question}</h2>
+    //   {poll.options.map(opt => (
+    //     <div key={opt.id}>
+    //       <label>
+    //         <input
+    //           type="radio"
+    //           name="vote"
+    //           value={opt.id}
+    //           onChange={() => setSelected(opt.id)}
+    //         />
+    //         {opt.text}
+    //       </label>
+    //     </div>
+    //   ))}
+    //   <button onClick={submitVote} disabled={!selected || voted}>
+    //     {voted ? 'Thanks for Voting!' : 'Submit Vote'}
+    //   </button>
+
+    //   {voted && (
+    //     <div>
+    //       <h3>Results:</h3>
+    //       <ul>
+    //         {poll.options.map(opt => (
+    //           <li key={opt.id}>
+    //             {opt.text}: {opt.vote_count} votes
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     </div>
+    //   )}
+    // </div>
   );
 }
 
