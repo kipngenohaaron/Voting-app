@@ -23,30 +23,64 @@ function CreatePoll() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Create Poll</h2>
+    <form onSubmit={handleSubmit} className="mb-5">
+  <h2>Create Poll</h2>
+  <div className="mb-3">
+    <input
+      className="form-control"
+      type="text"
+      placeholder="Enter question"
+      value={question}
+      onChange={e => setQuestion(e.target.value)}
+      required
+    />
+  </div>
+
+  <h4>Options</h4>
+  {options.map((opt, idx) => (
+    <div className="mb-2" key={idx}>
       <input
+        className="form-control"
         type="text"
-        placeholder="Enter question"
-        value={question}
-        onChange={e => setQuestion(e.target.value)}
+        placeholder={`Option ${idx + 1}`}
+        value={opt}
+        onChange={e => handleOptionChange(idx, e.target.value)}
         required
       />
-      <h3>Options</h3>
-      {options.map((opt, idx) => (
-        <input
-          key={idx}
-          type="text"
-          placeholder={`Option ${idx + 1}`}
-          value={opt}
-          onChange={e => handleOptionChange(idx, e.target.value)}
-          required
-        />
-      ))}
-      <button type="button" onClick={addOption}>Add Option</button>
-      <br />
-      <button type="submit">Submit Poll</button>
-    </form>
+    </div>
+  ))}
+
+  <div className="mb-3">
+    <button type="button" className="btn btn-secondary" onClick={addOption}>Add Option</button>
+  </div>
+
+  <button type="submit" className="btn btn-success">Submit Poll</button>
+</form>
+
+    // <form onSubmit={handleSubmit}>
+    //   <h2>Create Poll</h2>
+    //   <input
+    //     type="text"
+    //     placeholder="Enter question"
+    //     value={question}
+    //     onChange={e => setQuestion(e.target.value)}
+    //     required
+    //   />
+    //   <h3>Options</h3>
+    //   {options.map((opt, idx) => (
+    //     <input
+    //       key={idx}
+    //       type="text"
+    //       placeholder={`Option ${idx + 1}`}
+    //       value={opt}
+    //       onChange={e => handleOptionChange(idx, e.target.value)}
+    //       required
+    //     />
+    //   ))}
+    //   <button type="button" onClick={addOption}>Add Option</button>
+    //   <br />
+    //   <button type="submit">Submit Poll</button>
+    // </form>
   );
 }
 
